@@ -5,6 +5,7 @@
 
 /* Config */
 const selectingConfigPrecedence = ['nthWeekDay', 'dayOfWeek', 'dateOfMonth'];
+const filterConfigs = ['month', 'year'];
 
 /* Helpers */
 const dayOfWeek = (date) => date.getDay() + 1;
@@ -26,6 +27,7 @@ const scales = {
 		return (date.getDate() - firstDateWithSameWeekDay.getDate()) / 7 + 1;
 	},
 	month: (date) => date.getMonth() + 1,
+	year: (date) => date.getFullYear(),
 }
 
 module.exports = (config) => {
@@ -33,8 +35,9 @@ module.exports = (config) => {
 	const dateIndex = new Date(startDate);
 	const selectingConfig = selectingConfigPrecedence.filter((configName) => config[configName])[0];
 	const selectingScale = scales[selectingConfig];
+	const existingFilterConfigs = filterConfigs.filter((configName) => config[configName]);
 
-	const selectedDates = [];
+	let selectedDates = [];
 
 	while(dateIndex <= endDate) {
 		config[selectingConfig].forEach((value) => {
@@ -44,6 +47,10 @@ module.exports = (config) => {
 
 		dateIndex.setDate(dateIndex.getDate() + 1);
 	}
+
+	existingFilterConfigs.forEach((filterConfig) =>
+		selectedDates = selectedDates.filter((date) => config[filterConfig].includes(scales[filterConfig](date)))
+	);
 
 	return selectedDates;
 }
