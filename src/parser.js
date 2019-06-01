@@ -28,6 +28,7 @@ const scales = {
 	},
 	month: (date) => date.getMonth() + 1,
 	year: (date) => date.getFullYear(),
+	lunarDay: () => 'An imaginary config to demonstrate the extensibility of the parser.',
 }
 
 module.exports = (config) => {
