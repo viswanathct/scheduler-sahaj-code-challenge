@@ -48,6 +48,9 @@ module.exports = (config) => {
 		dateIndex.setDate(dateIndex.getDate() + 1);
 	}
 
+	if(config.step)
+		selectedDates = selectedDates.filter((dummy, index) => index % config.step == 0);
+
 	existingFilterConfigs.forEach((filterConfig) =>
 		selectedDates = selectedDates.filter((date) => config[filterConfig].includes(scales[filterConfig](date)))
 	);

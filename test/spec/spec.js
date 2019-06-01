@@ -94,8 +94,8 @@ module.exports = {
 			},
 			expectations: {
 				first: "2017-01-04",
-				last: "2017-12-27",
-				count: 27,
+				last: "2017-12-20",
+				count: 26,
 			},
 		},
 		{
@@ -106,7 +106,7 @@ module.exports = {
 			},
 			expectations: {
 				first: "2017-01-10",
-				last: "2017-12-10",
+				last: "2017-11-10",
 				count: 6,
 			},
 		},
