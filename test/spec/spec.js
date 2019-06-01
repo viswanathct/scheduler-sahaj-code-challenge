@@ -2,8 +2,8 @@
 # Notes
 
 * The reason for using JS, instead of JSON to write down the configuration is multifold, they are:
-	* Flexibilty (IE: The config could be used as a spec).
-	* Redabilty.
+	* Flexibility (IE: The config could be used as a spec).
+	* Readability.
 	* IDE support.
 	* The ability to add descriptive comments.
 	* And more.
@@ -12,7 +12,6 @@ module.exports = {
 	config: {
 		startDate: new Date('2017-01-01'), // The reason for choosing 2017 is that, it's a simple year. IE: Starts with a Sunday and is not a leap year.
 		endDate: new Date('2017-12-31'),
-		//NOTE: A reference calendar could be found at: https://www.timeanddate.com/calendar/?country=1&year=2017
 	},
 	cases: [
 		{

@@ -18,21 +18,22 @@ const expectationFinders = {
 	count: (occurrences) => occurrences.length,
 }
 
-const verifyUseCase = (usecase) => {
-	const { schedule, expectations } = usecase;
+const verifyUseCase = (useCase) => {
+	const { schedule, expectations } = useCase;
 	const occurrences = parser({ ...config, ...schedule });
 
 	entries(expectations).forEach(([expectationName, expectation]) => {
 		const actual = expectationFinders[expectationName](occurrences);
 
 		if(actual !== expectation)
-			throw new Error(`Expectian failed: ${expectationName}\nInfo:\n${JSON.stringify(usecase)}`)
+			throw new Error(`Expectation failed: ${expectationName}\nInfo:\n${JSON.stringify(useCase)}`)
 	});
 
-	console.log(`Passed: ${usecase.description}`);
+	console.log(`Passed: ${useCase.description}`);
 }
 
 module.exports = () => {
+	console.log('A reference calendar is here: https://www.timeanddate.com/calendar/?country=1&year=2017');
 	console.log('\nTesting the spec:');
 	cases.forEach(verifyUseCase);
 }

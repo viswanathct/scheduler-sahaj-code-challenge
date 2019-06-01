@@ -51,9 +51,9 @@ const tests = {
 		assert(schedule.getAllOccurrences().length == 12);
 	},
 
-	getNumberOfOccurences: () => {
+	getNumberOfOccurrences: () => {
 		const schedule = scheduler().for(scheduleConfig);
-		assert(schedule.getNumberOfOccurences() == 12);
+		assert(schedule.getNumberOfOccurrences() == 12);
 	},
 }
 
