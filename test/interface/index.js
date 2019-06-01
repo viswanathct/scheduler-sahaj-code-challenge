@@ -31,6 +31,16 @@ const tests = {
 		assert(isDateValid(firstOccurrence));
 	},
 
+	startDate: () => {
+		const schedule = scheduler().for(scheduleConfig);
+		assert(schedule.startDate().valueOf() === new Date('2017-01-01').valueOf());
+	},
+
+	endDate: () => {
+		const schedule = scheduler().for(scheduleConfig);
+		assert(schedule.endDate().valueOf() === new Date('2017-12-01').valueOf());
+	},
+
 	getOccurrences: () => {
 		const schedule = scheduler().for(scheduleConfig);
 		const occurrences = schedule.getOccurrences(1);
@@ -44,6 +54,9 @@ const tests = {
 
 		const occurrences = schedule.getOccurrencesFrom(fromDate);
 		assert(occurrences.length == 11);
+
+		const limitedOccurrences = schedule.getOccurrencesFrom(fromDate, 3);
+		assert(limitedOccurrences.length == 3);
 	},
 
 	getAllOccurrences: () => {

@@ -45,6 +45,10 @@ $ node test/index.js
 
 		* Even with the absence of classes, SOLID design principles are adhered to.
 
+	* A traditional testing framework isn't used.
+
+		* The reason for this is, I don't know of any traditional testing framework, which supports **spec testing**.
+
 
 # Plan
 
@@ -87,5 +91,9 @@ $ node test/index.js
 * 28 minutes to pass all the use-cases.
 
 * 38 minutes to test the interface.
+
+* 50 minutes in cleaning up.
+
+* 10 minutes to add some missing API-s.
 
 * ~7 hours of **Dev Time** in total.
