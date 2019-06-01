@@ -57,4 +57,8 @@ $ node test/index.js
 
 * 20 minutes to convert the spec to a testable spec.
 
-* 2:10 hours to pass the first usecase.
+* 2:10 hours to pass the first use-case.
+
+* 28 minutes to pass all the use-cases.
+
+* 38 minutes to test the interface.
