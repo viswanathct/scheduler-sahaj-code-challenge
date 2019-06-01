@@ -1,0 +1,30 @@
+{
+  "name": "scheduler-sahaj-code-challenge",
+  "version": "0.0.1",
+  "description": "An interview problem posed bu Sahaj, Chennai.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test/index.js",
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viswanathct/scheduler-sahaj-code-challenge.git"
+  },
+  "keywords": [
+    "scheduler",
+    "sahaj",
+    "chennai",
+    "code",
+    "challenge"
+  ],
+  "author": "Viswanath. Ct",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/viswanathct/scheduler-sahaj-code-challenge/issues"
+  },
+  "homepage": "https://github.com/viswanathct/scheduler-sahaj-code-challenge#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}
