@@ -47,10 +47,14 @@ $ node test/index.js
 
 # Time Taken
 
-* 3.5 hours to think through possible DSL-s and to finalize the simplest **required** DSL.
+* 3:30 hours to think through possible DSL-s and to finalize the simplest **required** DSL.
 
 * 20 minutes to setup the intial documentation.
 
 * 20 minutes to write down the spec in the proposed DSL.
 
-* Setup linting.
+* 10 minutes to setup linting.
+
+* 20 minutes to convert the spec to a testable spec.
+
+* 2:10 hours to pass the first usecase.

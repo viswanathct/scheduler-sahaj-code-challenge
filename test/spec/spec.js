@@ -10,29 +10,27 @@
 */
 module.exports = {
 	config: {
-		startDate: '2017-01-01', // The reason for choosing 2017 is that, it's a simple year. IE: Starts with a Sunday and is not a leap year.
-		endDate: '2017-12-31',
+		startDate: new Date('2017-01-01'), // The reason for choosing 2017 is that, it's a simple year. IE: Starts with a Sunday and is not a leap year.
+		endDate: new Date('2017-12-31'),
 		//NOTE: A reference calendar could be found at: https://www.timeanddate.com/calendar/?country=1&year=2017
 	},
 	cases: [
 		{
+			description: 'Every second Saturday is a holiday.',
 			schedule: {
-				description: 'Every second Saturday is a holiday.',
-				dsl: {
-					day: 7,
-					ordinal: 2,
-				},
+				dayOfWeek: [7],
+				nthWeekDay: [2],
 			},
 			expectations: {
 				first: "2017-01-14",
-				last: "2017-12-10",
+				last: "2017-12-09",
 				count: 12,
 			},
 		},
 		{
+			description: 'Remind me to pay my phone bill on the 10th of every month.',
 			schedule: {
-				description: 'Remind me to pay my phone bill on the 10th of every month.',
-				date: 10,
+				dateOfMonth: [10],
 			},
 			expectations: {
 				first: "2017-01-10",
@@ -41,10 +39,10 @@ module.exports = {
 			},
 		},
 		{
+			description: '2nd Sep is my anniversary.',
 			schedule: {
-				description: '2nd Sep is my anniversary.',
-				date: 2,
-				month: 9,
+				dateOfMonth: [2],
+				month: [9],
 			},
 			expectations: {
 				first: "2017-09-02",
@@ -53,9 +51,9 @@ module.exports = {
 			}, //TODO: Override the default end-date to test for recurrence.
 		},
 		{
+			description: 'Every Tuesday and Thursday is team catch-up.',
 			schedule: {
-				description: 'Every Tuesday and Thursday is team catch-up.',
-				day: [3, 5],
+				dayOfWeek: [3, 5],
 			},
 			expectations: {
 				first: "2017-01-03",
@@ -64,10 +62,10 @@ module.exports = {
 			},
 		},
 		{
+			description: 'Every 1st and 3rd Sunday, I need to visit the hospital.',
 			schedule: {
-				description: 'Every 1st and 3rd Sunday, I need to visit the hospital.',
-				day: 1,
-				ordinal: [1, 3],
+				dayOfWeek: [1],
+				nthWeekDay: [1, 3],
 			},
 			expectations: {
 				first: "2017-01-01",
@@ -76,11 +74,11 @@ module.exports = {
 			},
 		},
 		{
+			description: '2nd Dec 2017 we have a school reunion. (non-recurrent event)',
 			schedule: {
-				description: '2nd Dec 2017 we have a school reunion. (non-recurrent event)',
-				date: 2,
-				month: 12,
-				year: 2017,
+				dateOfMonth: [2],
+				month: [12],
+				year: [2017],
 			},
 			expectations: {
 				first: "2017-12-02",
@@ -89,9 +87,9 @@ module.exports = {
 			},
 		},
 		{
+			description: 'Every alternate Wednesday our sprint ends.',
 			schedule: {
-				description: 'Every alternate Wednesday our sprint ends.',
-				day: 4,
+				dayOfWeek: [4],
 				step: 2,
 			},
 			expectations: {
@@ -101,9 +99,9 @@ module.exports = {
 			},
 		},
 		{
+			description: 'Once in 2 months, on the 10th I need to pay my credit card bill.',
 			schedule: {
-				description: 'Once in 2 months, on the 10th I need to pay my credit card bill.',
-				date: 10,
+				dateOfMonth: [10],
 				step: 2,
 			},
 			expectations: {
@@ -113,9 +111,9 @@ module.exports = {
 			},
 		},
 		{
+			description: 'Once in every quarter, 5th we have shareholders’ meeting.',
 			schedule: {
-				description: 'Once in every quarter, 5th we have shareholders’ meeting.',
-				date: 5,
+				dateOfMonth: [5],
 				month: [3, 6, 9, 12],
 			},
 			expectations: {
