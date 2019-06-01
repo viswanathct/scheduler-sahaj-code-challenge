@@ -96,4 +96,8 @@ $ node test/index.js
 
 * 10 minutes to add some missing API-s.
 
+* 1:05 hours in enhancing the parser.
+
 * ~7 hours of **Dev Time** in total.
+
+* Another ~1:05 hours spent on **Enhancements**.
