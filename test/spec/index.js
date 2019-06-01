@@ -1,5 +1,5 @@
 /**
- * Tests
+ * Testing the spec.
  */
 
 
@@ -13,17 +13,17 @@ const { entries } = Object;
 const toExpectationDateString = (date) => date.toISOString().slice(0, 10);
 
 const expectationFinders = {
-	first: (occurances) => toExpectationDateString(occurances[0]),
-	last: (occurances) => toExpectationDateString(occurances[occurances.length - 1]),
-	count: (occurances) => occurances.length,
+	first: (occurrences) => toExpectationDateString(occurrences[0]),
+	last: (occurrences) => toExpectationDateString(occurrences[occurrences.length - 1]),
+	count: (occurrences) => occurrences.length,
 }
 
 const verifyUseCase = (usecase) => {
 	const { schedule, expectations } = usecase;
-	const occurances = parser({ ...config, ...schedule });
+	const occurrences = parser({ ...config, ...schedule });
 
 	entries(expectations).forEach(([expectationName, expectation]) => {
-		const actual = expectationFinders[expectationName](occurances);
+		const actual = expectationFinders[expectationName](occurrences);
 
 		if(actual !== expectation)
 			throw new Error(`Expectian failed: ${expectationName}\nInfo:\n${JSON.stringify(usecase)}`)
@@ -32,4 +32,7 @@ const verifyUseCase = (usecase) => {
 	console.log(`Passed: ${usecase.description}`);
 }
 
-module.exports = () => cases.forEach(verifyUseCase);
+module.exports = () => {
+	console.log('\nTesting the spec:');
+	cases.forEach(verifyUseCase);
+}
