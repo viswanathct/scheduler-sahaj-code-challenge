@@ -8,8 +8,21 @@ const { keys } = Object;
 
 const dayOfWeek = (date) => date.getDay() + 1;
 
+const getClassifier = (schedule) => (date) => {
+	const availableSelectors = selectors.filter((selector) => schedule[selector]);
+
+	return availableSelectors.findIndex((selector) =>  {
+		const selectingValues = schedule[selector];
+		const selectorScale = selectorScales[selector];
+		const hasNoMatches = selectingValues
+			.findIndex((value) => selectorScale(date, schedule) === value) == -1;
+
+		return hasNoMatches;
+	}) == -1; //NOTE: A no-negatives case is checked for, instead of an all-positives case, so to reduce checks, by deselecting early.
+}
+
 /* Core */
-const selectorScales = { //NOTE: Selectors are applied sequentially, in the order of declaration.
+const selectorScales = { //NOTE: Selectors are applied sequentially, in the order of declaration. The declaration is specified in such a way to deselect early.
 	year: (date) => date.getFullYear(),
 	month: (date) => date.getMonth() + 1,
 	dateOfMonth: (date) => date.getDate(),
@@ -30,29 +43,25 @@ const selectorScales = { //NOTE: Selectors are applied sequentially, in the orde
 /* Data */
 const selectors = keys(selectorScales);
 
-module.exports = (config) => {
-	const { startDate, endDate } = config;
-	const availableSelectors = selectors.filter((selector) => config[selector]);
+/* Exports */
+const parseSchedule = (schedule) => {
+	const { startDate, endDate } = schedule;
+	const classifyDate = getClassifier(schedule);
 
 	let selectedDates = [];
 
-	const dateIndex = new Date(startDate);
-	while(dateIndex <= endDate) {
-		const dateMatchesAllSelectors = availableSelectors.findIndex((selector) =>  {
-			const selectingValues = config[selector];
-			const hasNoMatches = selectingValues
-				.findIndex((value) => selectorScales[selector](dateIndex, config) === value) == -1;
-			return hasNoMatches;
-		}) == -1; //NOTE: A no-negatives case is checked for, instead of an all-positives case, so to reduce checks.
+	const dateForSelection = new Date(startDate);
+	while(dateForSelection <= endDate) {
+		if(classifyDate(dateForSelection))
+			selectedDates.push(new Date(dateForSelection));
 
-		if(dateMatchesAllSelectors)
-			selectedDates.push(new Date(dateIndex));
-
-		dateIndex.setDate(dateIndex.getDate() + 1);
+		dateForSelection.setDate(dateForSelection.getDate() + 1);
 	}
 
-	if(config.step)
-		selectedDates = selectedDates.filter((dummy, index) => index % config.step == 0);
+	if(schedule.step)
+		selectedDates = selectedDates.filter((dummy, index) => index % schedule.step == 0);
 
 	return selectedDates;
 }
+
+module.exports = parseSchedule;

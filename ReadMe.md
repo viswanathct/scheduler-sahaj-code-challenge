@@ -100,4 +100,4 @@ $ node test/index.js
 
 * ~7 hours of **Dev Time** in total.
 
-* Another ~1:25 hours spent on **Enhancements**.
+* Another ~1:45 hours spent on **Enhancements**.
