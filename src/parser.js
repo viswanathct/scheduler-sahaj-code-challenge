@@ -9,7 +9,7 @@ const { keys } = Object;
 const dayOfWeek = (date) => date.getDay() + 1;
 
 const getClassifier = (schedule) => (date) => {
-	const availableSelectors = selectors.filter((selector) => schedule[selector]);
+	const availableSelectors = selectorProps.filter((selector) => schedule[selector]);
 
 	return availableSelectors.findIndex((selector) =>  {
 		const selectingValues = schedule[selector];
@@ -19,6 +19,12 @@ const getClassifier = (schedule) => (date) => {
 
 		return hasNoMatches;
 	}) == -1; //NOTE: A no-negatives case is checked for, instead of an all-positives case, so to reduce checks, by deselecting early.
+}
+
+const getRefiner = (schedule) => (dates) => {
+	const availableRefiners = refinerProps.filter((prop) => schedule[prop]).map((prop) => refiners[prop]);
+	availableRefiners.forEach((refiner) => dates = refiner(dates, schedule));
+	return dates;
 }
 
 /* Core */
@@ -40,13 +46,19 @@ const selectorScales = { //NOTE: Selectors are applied sequentially, in the orde
 	},
 }
 
+const refiners = {
+	step: (dates, schedule) => dates.filter((dummy, index) => index % schedule.step == 0),
+}
+
 /* Data */
-const selectors = keys(selectorScales);
+const selectorProps = keys(selectorScales);
+const refinerProps = keys(refiners);
 
 /* Exports */
 const parseSchedule = (schedule) => {
 	const { startDate, endDate } = schedule;
 	const classifyDate = getClassifier(schedule);
+	const refineSelection = getRefiner(schedule);
 
 	let selectedDates = [];
 
@@ -58,10 +70,7 @@ const parseSchedule = (schedule) => {
 		dateForSelection.setDate(dateForSelection.getDate() + 1);
 	}
 
-	if(schedule.step)
-		selectedDates = selectedDates.filter((dummy, index) => index % schedule.step == 0);
-
-	return selectedDates;
+	return refineSelection(selectedDates);
 }
 
 module.exports = parseSchedule;
