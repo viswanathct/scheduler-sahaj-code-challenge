@@ -20,15 +20,17 @@ $ node test/index.js
 
 * Comments are frequent in the solution, to convey the intention behind decisions to the reviewer.
 
-* The structure is implemented with simplicity in mind, with full awareness on the possibility of having a more nuanced structure, which supports recursive configuration. IE: Such a DSL along with its parser, would enable us to schedule for **"the first sunday of the third week of the second month of the second quarter of the next leap year"**. Though the implementation is only slightly costly (~1.75x), it wasn't undertaken, as the primary ask was **Simplicity** and there was an explicit call-out to follow **YAGNI** and **KISS**.
+* The structure is implemented with simplicity in mind, with full awareness on the possibility of having a more nuanced structure, which supports recursive configuration. IE: Such a DSL along with its parser, would enable us to schedule for **"the first sunday of the third week of the second month of the second quarter of the next leap year"**. Though the implementation is only slightly costly (~1.75x), it wasn't undertaken, as the primary ask was **Simplicity** and also due to the explicit call-out to follow **YAGNI** and **KISS**.
+
+* For more info on the DSL, check the file, **structure.md**.
 
 * Possible deviations from the norm and the reasons for such decisions:
 
 	* The DSL isn't as portrayed in the ask.
 
-		* The current implementation is well thought through, to keep the solution simple -- even when extended. DevEx of the DSL was deprioritized over the ability to generate the DSL from a UI. This required the DSL to be simple and versatile, albeit being a little less readable.
+		* The current implementation is well thought through, to keep the solution simple -- even when extended. DevEx of the DSL was deprioritized over the ability to generate the DSL (possibly from a UI). This required the DSL to be simple and versatile, albeit being a little less readable.
 
-		* If readability were a concern, an adapter could be written for the DSL itself to improve **DevEX**. If needed, see the following repos for an example:
+		* If readability were a concern, an adapter could be written for the DSL itself, to improve **DevEX**. If needed, see the following repos for an example:
 
 			* A DSL - [JSON Transformation Schema](https://github.com/viswanathct/json-transformation-schema).
 
