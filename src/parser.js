@@ -13,7 +13,7 @@ const getClassifier = (schedule) => (date) => {
 
 	return availableSelectors.findIndex((selector) =>  {
 		const selectingValues = schedule[selector];
-		const selectorScale = selectorScales[selector];
+		const selectorScale = classifiers[selector];
 		const hasNoMatches = selectingValues
 			.findIndex((value) => selectorScale(date, schedule) === value) == -1;
 
@@ -28,7 +28,7 @@ const getRefiner = (schedule) => (dates) => {
 }
 
 /* Core */
-const selectorScales = { //NOTE: Selectors are applied sequentially, in the order of declaration. The declaration is specified in such a way to deselect early.
+const classifiers = { //NOTE: Selectors are applied sequentially, in the order of declaration. The declaration is specified in such a way to deselect early.
 	year: (date) => date.getFullYear(),
 	month: (date) => date.getMonth() + 1,
 	dateOfMonth: (date) => date.getDate(),
@@ -51,7 +51,7 @@ const refiners = {
 }
 
 /* Data */
-const selectorProps = keys(selectorScales);
+const selectorProps = keys(classifiers);
 const refinerProps = keys(refiners);
 
 /* Exports */
