@@ -7,12 +7,12 @@ const { keys } = Object;
 
 const dayOfWeek = (date) => date.getDay() + 1;
 
-const getClassifier = (schedule) => (date) => {
-	const availableSelectors = classifierKeys.filter((selector) => schedule[selector]);
+const getSelector = (schedule) => (date) => {
+	const availableSelectors = selectorKeys.filter((selector) => schedule[selector]);
 
 	return availableSelectors.findIndex((selector) =>  {
 		const selectingValues = schedule[selector];
-		const selectorScale = classifiers[selector];
+		const selectorScale = selectors[selector];
 		const hasNoMatches = selectingValues
 			.findIndex((value) => selectorScale(date, schedule) === value) == -1;
 
@@ -21,7 +21,8 @@ const getClassifier = (schedule) => (date) => {
 }
 
 const getRefiner = (schedule) => (dates) => {
-	const availableRefiners = refinerKeys.filter((prop) => schedule[prop]).map((prop) => refiners[prop]);
+	const availableRefiners = refinerKeys.filter(
+		(prop) => schedule[prop]).map((prop) => refiners[prop]);
 	availableRefiners.forEach((refiner) => dates = refiner(dates, schedule));
 	return dates;
 }
@@ -39,7 +40,7 @@ const getDates = (startDate, endDate) => {
 }
 
 /* Core */
-const classifiers = { //NOTE: Selectors are applied sequentially, in the order of declaration. The declaration is specified in such a way to deselect early.
+const selectors = { //NOTE: Selectors are applied sequentially, in the order of declaration. The declaration is specified in such a way to deselect early.
 	year: (date) => date.getFullYear(),
 	month: (date) => date.getMonth() + 1,
 	dateOfMonth: (date) => date.getDate(),
@@ -62,18 +63,18 @@ const refiners = {
 }
 
 /* Data */
-const classifierKeys = keys(classifiers);
+const selectorKeys = keys(selectors);
 const refinerKeys = keys(refiners);
 
 /* Exports */
 const parseSchedule = (schedule) => {
 	const { startDate, endDate } = schedule;
-	const classifyDate = getClassifier(schedule);
+	const selectDate = getSelector(schedule);
 	const refineSelection = getRefiner(schedule);
-	const datesToClassify = getDates(startDate, endDate);
-	const classifiedDates = datesToClassify.filter(classifyDate);
+	const dateRange = getDates(startDate, endDate);
+	const selectedDates = dateRange.filter(selectDate);
 
-	return refineSelection(classifiedDates);
+	return refineSelection(selectedDates);
 }
 
 module.exports = parseSchedule;
