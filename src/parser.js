@@ -2,14 +2,13 @@
  * Schedule Parser
  */
 
-
 /* Helpers */
 const { keys } = Object;
 
 const dayOfWeek = (date) => date.getDay() + 1;
 
 const getClassifier = (schedule) => (date) => {
-	const availableSelectors = selectorProps.filter((selector) => schedule[selector]);
+	const availableSelectors = classifierKeys.filter((selector) => schedule[selector]);
 
 	return availableSelectors.findIndex((selector) =>  {
 		const selectingValues = schedule[selector];
@@ -22,8 +21,20 @@ const getClassifier = (schedule) => (date) => {
 }
 
 const getRefiner = (schedule) => (dates) => {
-	const availableRefiners = refinerProps.filter((prop) => schedule[prop]).map((prop) => refiners[prop]);
+	const availableRefiners = refinerKeys.filter((prop) => schedule[prop]).map((prop) => refiners[prop]);
 	availableRefiners.forEach((refiner) => dates = refiner(dates, schedule));
+	return dates;
+}
+
+const getDates = (startDate, endDate) => {
+	const dates = [];
+	const cursor = new Date(startDate);
+
+	while(cursor <= endDate) {
+		dates.push(new Date(cursor));
+		cursor.setDate(cursor.getDate() + 1);
+	}
+
 	return dates;
 }
 
@@ -51,26 +62,18 @@ const refiners = {
 }
 
 /* Data */
-const selectorProps = keys(classifiers);
-const refinerProps = keys(refiners);
+const classifierKeys = keys(classifiers);
+const refinerKeys = keys(refiners);
 
 /* Exports */
 const parseSchedule = (schedule) => {
 	const { startDate, endDate } = schedule;
 	const classifyDate = getClassifier(schedule);
 	const refineSelection = getRefiner(schedule);
+	const datesToClassify = getDates(startDate, endDate);
+	const classifiedDates = datesToClassify.filter(classifyDate);
 
-	let selectedDates = [];
-
-	const dateForSelection = new Date(startDate);
-	while(dateForSelection <= endDate) {
-		if(classifyDate(dateForSelection))
-			selectedDates.push(new Date(dateForSelection));
-
-		dateForSelection.setDate(dateForSelection.getDate() + 1);
-	}
-
-	return refineSelection(selectedDates);
+	return refineSelection(classifiedDates);
 }
 
 module.exports = parseSchedule;
