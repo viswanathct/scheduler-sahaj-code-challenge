@@ -12,7 +12,7 @@ $ node test/index.js
 
 # The Ask (requirements)
 
-	See the attached PDF.
+	See the attached PDF (at /the-ask.pdf).
 
 # Notes
 
@@ -34,14 +34,13 @@ $ node test/index.js
 
 			* A DSL - [JSON Transformation Schema](https://github.com/viswanathct/json-transformation-schema).
 
-
 			* And an adapter to make it more humane - [JTS Templates](https://github.com/viswanathct/jts-templates).
 
 	* There weren't any *conventional classes*.
 
 		* The decision is taken for two reasons:
 
-			* Making extensions simple and straight forward. Look for **lunarDay** in the parser. An new config is as simple as adding a line of code. ***PS:** This doesn't violate YAGNI, as extensibility is not a feature, but an inherent capacity of a system.*
+			* Making extensions simple and straight forward. Look for **lunarDay** in the parser. A new config is as simple as adding a line of code. ***PS:** This doesn't violate YAGNI, as extensibility is not a feature, but an inherent capacity of a system.*
 
 			* To understand the limitations of a design pattern, which I'm evolving, to help with declarative programming.
 
