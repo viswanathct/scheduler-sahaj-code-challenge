@@ -27,7 +27,7 @@ const getRefiner = (schedule) => (dates) => {
 	return dates;
 }
 
-const getDates = (startDate, endDate) => {
+const getDates = ({ startDate, endDate }) => {
 	const dates = [];
 	const cursor = new Date(startDate);
 
@@ -68,10 +68,9 @@ const refinerKeys = keys(refiners);
 
 /* Exports */
 const parseSchedule = (schedule) => {
-	const { startDate, endDate } = schedule;
 	const selectDate = getSelector(schedule);
 	const refineSelection = getRefiner(schedule);
-	const dateRange = getDates(startDate, endDate);
+	const dateRange = getDates(schedule);
 	const selectedDates = dateRange.filter(selectDate);
 
 	return refineSelection(selectedDates);
