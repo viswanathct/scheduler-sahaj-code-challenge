@@ -76,4 +76,8 @@ const parseSchedule = (schedule) => {
 	return refineSelection(selectedDates);
 }
 
+// One-liner
+// const parseSchedule = (schedule) =>
+	// getRefiner(schedule)(getDates(schedule).filter(getSelector(schedule)));
+
 module.exports = parseSchedule;
