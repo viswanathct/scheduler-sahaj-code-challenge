@@ -8,11 +8,11 @@ const { keys } = Object;
 const dayOfWeek = (date) => date.getDay() + 1;
 
 const getSelector = (schedule) => (date) => {
-	const availableSelectors = selectorKeys.filter((selector) => schedule[selector]);
+	const availableSelectors = scaleKeys.filter((selector) => schedule[selector]);
 
 	return availableSelectors.findIndex((selector) =>  {
 		const selectingValues = schedule[selector];
-		const selectorScale = selectors[selector];
+		const selectorScale = scales[selector];
 		const hasNoMatches = selectingValues
 			.findIndex((value) => selectorScale(date, schedule) === value) == -1;
 
@@ -40,7 +40,7 @@ const getDates = ({ startDate, endDate }) => {
 }
 
 /* Core */
-const selectors = { //NOTE: Selectors are applied sequentially, in the order of declaration. The declaration is specified in such a way to deselect early.
+const scales = { //NOTE: Scales are applied sequentially, in the order of declaration. The declaration is specified in such a way to deselect early.
 	year: (date) => date.getFullYear(),
 	month: (date) => date.getMonth() + 1,
 	dateOfMonth: (date) => date.getDate(),
@@ -63,7 +63,7 @@ const refiners = {
 }
 
 /* Data */
-const selectorKeys = keys(selectors);
+const scaleKeys = keys(scales);
 const refinerKeys = keys(refiners);
 
 /* Exports */
